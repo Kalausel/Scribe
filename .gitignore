@@ -1,0 +1,17 @@
+.venv/
+tests/
+cfg_temp
+check_sym_pos_temp
+grbl_out
+home
+scribe_test.py
+temp
+test_gcode
+*.ipynb
+__pycache__/
+test/__pycache__/
+plotter_setup
+build/
+*.egg-info/
+dist/
+*.dist-info/
