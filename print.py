@@ -55,15 +55,6 @@ if USER == 'pi':
         led_off(color)
     sleep(1)
 
-def loop(gcode_page, sender, check_sym_pos):
-    gcode_page.save('temp', pure=True) # GCode.save stores its commandstr in the file, which is just text.
-    success, got_pos = sender.send_gcode("temp", settings=None, check_sym_pos=check_sym_pos, return_check_pos=True)
-    log(f"LOOP: sym_pos check {'un' if not success else ''}successful. Expected: {check_sym_pos}. Got: {got_pos}")
-    if not success:
-        sender.send_gcode("home", settings=None)
-        sender.send_gcode("temp", settings=None, check_sym_pos=False)
-        log("LOOP: Sending gcode after homing complete.")
-
 led_on("white")
 LANGUAGE = input("'de'/'en'")#/'fwt'/'fwb'/'fws'...")
 
@@ -122,10 +113,6 @@ text2font = Text2Font(sheet.width, sheet.height
                       , string_alphabet=True
                       , initial_position=sheet.cursor_position)
 
-#log('Initialising printer...')
-# TODO necessary?
-# check for paper?
-
 font = text2font("")
 printer = Printer()
 
@@ -140,12 +127,14 @@ while True:
     log(f"Selected {selection}.")
 
     if selection == 'p':
+        gcode_pages = sheet.split_pages(font)
+        font = text2font("")
         if len(gcode_pages) == 0:
             log("Tried printing. gcode_pages is an empty list.")
             continue
         for gcode_page in gcode_pages:
-            gcode_page.write_svg("temp", sheet.width, sheet.height, sheet.font_size/10)
-            printer.print("temp")
+            gcode_page.write_svg("temp.svg", sheet.width, sheet.height, sheet.font_size/10)
+            printer.print("temp.svg")
             gcode_pages = gcode_pages[1:]
             if len(gcode_pages) == 0:
                 break
@@ -176,7 +165,6 @@ while True:
     font.append(text2font.convert(text))
     log(f"{text2font.current_position = }")
     font.curves2g1(interval=sheet.font_size/20, inplace=True)
-    gcode_pages = sheet.split_pages(font)
     sheet.cursor_position = text2font.current_position
     log(f"{sheet.__dict__ = }")
     sheet.save(files[key_idx])

@@ -16,3 +16,6 @@ build/
 dist/
 *.dist-info/
 test_svg.svg
+test_svg.pdf
+temp.svg
+temp.pdf
