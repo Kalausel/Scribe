@@ -15,3 +15,4 @@ build/
 *.egg-info/
 dist/
 *.dist-info/
+test_svg.svg

@@ -8,7 +8,7 @@ from datetime import datetime
 from sound2font.audiomodule import Microphone, AudioData, Speaker
 from sound2font.speech2text import Speech2Text, Speech2Text_fw
 from sound2font.textmodule import GrammarAdder
-from sound2font.text2font import Text2Font
+from sound2font.text2font import Text2Font, KEYWORDS
 from src.scribe.book import Page, Book
 from src.scribe.gcodesender import GCodeSender
 
@@ -186,9 +186,9 @@ while True:
     #     punct_text = grammar_adder.add_grammar_rcp(text)
     
     if selection == 'nl':
-        punct_text = "\n" + punct_text
+        punct_text = KEYWORDS['nl'] + punct_text
     elif selection == 'np':
-        punct_text = "NEWPAGE\n" + punct_text
+        punct_text = KEYWORDS['np'] + punct_text
     else: # space
         pass
     log('Finished converting to text.\nGenerating GCode...')
