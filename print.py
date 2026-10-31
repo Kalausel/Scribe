@@ -133,6 +133,7 @@ while True:
             log("Tried printing. gcode_pages is an empty list.")
             continue
         for gcode_page in gcode_pages:
+            gcode_page.invert_coordinate(1, inplace=True)
             gcode_page.write_svg("temp.svg", sheet.width, sheet.height, sheet.font_size/10)
             printer.print_svg("temp.svg")
             gcode_pages = gcode_pages[1:]
