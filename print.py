@@ -134,7 +134,7 @@ while True:
             continue
         for gcode_page in gcode_pages:
             gcode_page.write_svg("temp.svg", sheet.width, sheet.height, sheet.font_size/10)
-            printer.print("temp.svg")
+            printer.print_svg("temp.svg")
             gcode_pages = gcode_pages[1:]
             if len(gcode_pages) == 0:
                 break
