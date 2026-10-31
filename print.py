@@ -113,7 +113,7 @@ text2font = Text2Font(sheet.width, sheet.height
                       , string_alphabet=True
                       , initial_position=sheet.cursor_position)
 
-font = text2font("")
+font = text2font.convert("")
 printer = Printer()
 
 while True:
@@ -128,7 +128,7 @@ while True:
 
     if selection == 'p':
         gcode_pages = sheet.split_pages(font)
-        font = text2font("")
+        font = text2font.convert("")
         if len(gcode_pages) == 0:
             log("Tried printing. gcode_pages is an empty list.")
             continue
