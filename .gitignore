@@ -20,4 +20,4 @@ test_svg.pdf
 temp.svg
 temp.pdf
 print_log
-data
+data/
